@@ -14,6 +14,7 @@ import {
   Mail,
   MapPin,
   Menu,
+  MessageCircle,
   Mic2,
   Monitor,
   Radio,
@@ -454,7 +455,7 @@ export default function App() {
                   }}
                 >
                   <img
-                    src="/assets/generated/ahil-anime.dim_400x400.png"
+                    src="/assets/generated/ahil-anime-transparent.dim_400x400.png"
                     alt="Ahil - Web Developer, IT Expert & Broadcast Expert"
                     className="w-full h-full object-cover"
                   />
@@ -524,6 +525,7 @@ export default function App() {
                 { label: "Name", value: "Ahil" },
                 { label: "Role", value: "Multi-domain Expert" },
                 { label: "Email", value: "ahil.contact@gmail.com" },
+                { label: "WhatsApp", value: "+8801976842401" },
                 { label: "Location", value: "Available Worldwide" },
                 { label: "Experience", value: "5+ Years" },
                 { label: "Status", value: "Open to Work" },
@@ -560,7 +562,7 @@ export default function App() {
                 }}
               >
                 <img
-                  src="/assets/generated/ahil-anime.dim_400x400.png"
+                  src="/assets/generated/ahil-anime-transparent.dim_400x400.png"
                   alt="Ahil - Web Developer, IT Expert & Broadcast Expert"
                   className="w-full h-full object-cover"
                 />
@@ -873,6 +875,12 @@ export default function App() {
                 href: "mailto:ahil.contact@gmail.com",
               },
               {
+                icon: <MessageCircle size={18} />,
+                label: "WhatsApp",
+                value: "+8801976842401",
+                href: "https://wa.me/8801976842401",
+              },
+              {
                 icon: <Linkedin size={18} />,
                 label: "LinkedIn",
                 value: "linkedin.com/in/ahil",
@@ -920,6 +928,11 @@ export default function App() {
                   icon: <Linkedin size={18} />,
                   href: "https://linkedin.com/in/ahil",
                   label: "LinkedIn",
+                },
+                {
+                  icon: <MessageCircle size={18} />,
+                  href: "https://wa.me/8801976842401",
+                  label: "WhatsApp",
                 },
                 {
                   icon: <Github size={18} />,
@@ -997,6 +1010,11 @@ export default function App() {
                     icon: <Linkedin size={17} />,
                     href: "https://linkedin.com/in/ahil",
                     label: "LinkedIn",
+                  },
+                  {
+                    icon: <MessageCircle size={17} />,
+                    href: "https://wa.me/8801976842401",
+                    label: "WhatsApp",
                   },
                   {
                     icon: <Github size={17} />,
