@@ -1,31 +1,23 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Toaster } from "@/components/ui/sonner";
-import { Textarea } from "@/components/ui/textarea";
 import {
   ArrowRight,
   ChevronDown,
   Code2,
   ExternalLink,
-  Github,
   Globe,
-  Linkedin,
-  Mail,
   MapPin,
   Menu,
   MessageCircle,
   Mic2,
   Monitor,
+  Phone,
   Radio,
-  Send,
   Server,
-  Twitter,
   X,
 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
 
 // ─── Nav Links ──────────────────────────────────────────────────────────────
 const NAV_LINKS = [
@@ -214,8 +206,6 @@ function SectionHeading({
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [sending, setSending] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -228,19 +218,8 @@ export default function App() {
     setMenuOpen(false);
   }
 
-  async function handleSend(e: React.FormEvent) {
-    e.preventDefault();
-    setSending(true);
-    await new Promise((r) => setTimeout(r, 1200));
-    setSending(false);
-    toast.success("Message sent! Ahil will get back to you soon.");
-    setForm({ name: "", email: "", message: "" });
-  }
-
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#0B1118" }}>
-      <Toaster position="top-right" />
-
       {/* ── NAVBAR ─────────────────────────────────────────────────────────── */}
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -439,25 +418,23 @@ export default function App() {
               className="flex justify-center lg:justify-end"
             >
               <div className="relative">
-                {/* Glow ring behind avatar */}
+                {/* Glow behind avatar */}
                 <div
-                  className="absolute inset-0 rounded-full blur-3xl opacity-30"
+                  className="absolute inset-0 blur-3xl opacity-25"
                   style={{
                     background:
                       "radial-gradient(circle, #2D7DFF 0%, transparent 70%)",
                   }}
                 />
-                <div
-                  className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-2 border-blue-accent/30"
-                  style={{
-                    boxShadow:
-                      "0 0 60px rgba(45,125,255,0.25), 0 20px 60px rgba(0,0,0,0.5)",
-                  }}
-                >
+                <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
                   <img
-                    src="/assets/generated/ahil-anime-transparent.dim_400x400.png"
+                    src="/assets/generated/ahil-avatar-transparent.png"
                     alt="Ahil - Web Developer, IT Expert & Broadcast Expert"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain drop-shadow-2xl"
+                    style={{
+                      filter:
+                        "drop-shadow(0 0 32px rgba(45,125,255,0.35)) drop-shadow(0 8px 32px rgba(0,0,0,0.6))",
+                    }}
                   />
                 </div>
                 {/* Floating badges */}
@@ -524,7 +501,6 @@ export default function App() {
               {[
                 { label: "Name", value: "Ahil" },
                 { label: "Role", value: "Multi-domain Expert" },
-                { label: "Email", value: "ahil.contact@gmail.com" },
                 { label: "WhatsApp", value: "+8801976842401" },
                 { label: "Location", value: "Available Worldwide" },
                 { label: "Experience", value: "5+ Years" },
@@ -554,17 +530,23 @@ export default function App() {
           {/* Avatar card */}
           <div className="flex justify-center md:justify-end order-first md:order-last">
             <div className="relative">
+              {/* Glow */}
               <div
-                className="w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-2xl overflow-hidden border border-white/10"
+                className="absolute inset-0 blur-2xl opacity-20"
                 style={{
-                  boxShadow:
-                    "0 0 40px rgba(45,125,255,0.2), 0 20px 60px rgba(0,0,0,0.4)",
+                  background:
+                    "radial-gradient(circle, #2D7DFF 0%, transparent 70%)",
                 }}
-              >
+              />
+              <div className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80">
                 <img
-                  src="/assets/generated/ahil-anime-transparent.dim_400x400.png"
+                  src="/assets/generated/ahil-avatar-transparent.png"
                   alt="Ahil - Web Developer, IT Expert & Broadcast Expert"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
+                  style={{
+                    filter:
+                      "drop-shadow(0 0 24px rgba(45,125,255,0.3)) drop-shadow(0 8px 24px rgba(0,0,0,0.5))",
+                  }}
                 />
               </div>
               {/* Floating badge */}
@@ -755,209 +737,133 @@ export default function App() {
       </Section>
 
       {/* ── CONTACT ────────────────────────────────────────────────────────── */}
-      <Section id="contact" className="max-w-7xl mx-auto">
+      <Section id="contact" className="max-w-4xl mx-auto">
         <SectionHeading
           title="Get In Touch"
-          subtitle="Have a project in mind? Let&#39;s build something great together."
+          subtitle="Reach out via WhatsApp or call — I'm happy to help with your project."
         />
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-10">
-          {/* Form */}
-          <div
-            className="rounded-2xl border border-white/6 p-5 sm:p-8"
-            style={{ backgroundColor: "#141E28" }}
-            data-ocid="contact.panel"
-          >
-            <h3 className="font-display text-lg sm:text-xl font-bold text-foreground mb-5 sm:mb-6">
-              Send a Message
-            </h3>
-            <form onSubmit={handleSend} className="space-y-4">
-              <div>
-                <label
-                  className="text-xs sm:text-sm font-medium text-muted-foreground mb-1.5 block"
-                  htmlFor="c-name"
-                >
-                  Name
-                </label>
-                <Input
-                  id="c-name"
-                  placeholder="Your name"
-                  value={form.name}
-                  onChange={(e) =>
-                    setForm((p) => ({ ...p, name: e.target.value }))
-                  }
-                  required
-                  className="border-white/10 focus:border-blue-accent/50 text-sm"
-                  style={{ backgroundColor: "#111A23" }}
-                  data-ocid="contact.input"
-                />
-              </div>
-              <div>
-                <label
-                  className="text-xs sm:text-sm font-medium text-muted-foreground mb-1.5 block"
-                  htmlFor="c-email"
-                >
-                  Email
-                </label>
-                <Input
-                  id="c-email"
-                  type="email"
-                  placeholder="your@email.com"
-                  value={form.email}
-                  onChange={(e) =>
-                    setForm((p) => ({ ...p, email: e.target.value }))
-                  }
-                  required
-                  className="border-white/10 focus:border-blue-accent/50 text-sm"
-                  style={{ backgroundColor: "#111A23" }}
-                  data-ocid="contact.input"
-                />
-              </div>
-              <div>
-                <label
-                  className="text-xs sm:text-sm font-medium text-muted-foreground mb-1.5 block"
-                  htmlFor="c-msg"
-                >
-                  Message
-                </label>
-                <Textarea
-                  id="c-msg"
-                  placeholder="Tell me about your project..."
-                  rows={5}
-                  value={form.message}
-                  onChange={(e) =>
-                    setForm((p) => ({ ...p, message: e.target.value }))
-                  }
-                  required
-                  className="border-white/10 focus:border-blue-accent/50 text-sm resize-none"
-                  style={{ backgroundColor: "#111A23" }}
-                  data-ocid="contact.textarea"
-                />
-              </div>
-              <Button
-                type="submit"
-                disabled={sending}
-                className="w-full rounded-full text-white font-semibold"
-                style={{ backgroundColor: "#2D7DFF" }}
-                data-ocid="contact.submit_button"
+        <div className="flex flex-col items-center gap-6 sm:gap-8">
+          <p className="text-muted-foreground text-sm sm:text-base text-center max-w-lg leading-relaxed">
+            Whether you&apos;re looking for a web developer, IT consultant, or
+            broadcast professional &mdash; I&apos;m just a message or call away.
+            Let&apos;s build something great together.
+          </p>
+
+          {/* CTA Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 w-full max-w-2xl">
+            {/* WhatsApp */}
+            <a
+              href="https://wa.me/8801976842401"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex flex-col items-center gap-4 p-6 sm:p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+              style={{
+                backgroundColor: "#141E28",
+                borderColor: "rgba(37,211,102,0.25)",
+                boxShadow: "0 0 0 0 rgba(37,211,102,0)",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.boxShadow =
+                  "0 8px 32px rgba(37,211,102,0.2)";
+                (e.currentTarget as HTMLAnchorElement).style.borderColor =
+                  "rgba(37,211,102,0.5)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.boxShadow =
+                  "0 0 0 0 rgba(37,211,102,0)";
+                (e.currentTarget as HTMLAnchorElement).style.borderColor =
+                  "rgba(37,211,102,0.25)";
+              }}
+              data-ocid="contact.link"
+            >
+              <div
+                className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110"
+                style={{ backgroundColor: "rgba(37,211,102,0.15)" }}
               >
-                {sending ? (
-                  <span className="flex items-center gap-2">
-                    <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    Sending...
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-2">
-                    <Send size={15} /> Send Message
-                  </span>
-                )}
-              </Button>
-            </form>
+                <MessageCircle size={32} style={{ color: "#25D366" }} />
+              </div>
+              <div className="text-center">
+                <div className="text-sm font-semibold text-muted-foreground mb-1">
+                  WhatsApp
+                </div>
+                <div
+                  className="text-lg sm:text-xl font-bold"
+                  style={{ color: "#25D366" }}
+                >
+                  +8801976842401
+                </div>
+                <div className="text-xs text-muted-foreground mt-2 opacity-70">
+                  Tap to chat now
+                </div>
+              </div>
+            </a>
+
+            {/* Call */}
+            <a
+              href="tel:+8801976842401"
+              className="group flex flex-col items-center gap-4 p-6 sm:p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+              style={{
+                backgroundColor: "#141E28",
+                borderColor: "rgba(45,125,255,0.25)",
+                boxShadow: "0 0 0 0 rgba(45,125,255,0)",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.boxShadow =
+                  "0 8px 32px rgba(45,125,255,0.2)";
+                (e.currentTarget as HTMLAnchorElement).style.borderColor =
+                  "rgba(45,125,255,0.5)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.boxShadow =
+                  "0 0 0 0 rgba(45,125,255,0)";
+                (e.currentTarget as HTMLAnchorElement).style.borderColor =
+                  "rgba(45,125,255,0.25)";
+              }}
+              data-ocid="contact.link"
+            >
+              <div
+                className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110"
+                style={{ backgroundColor: "rgba(45,125,255,0.15)" }}
+              >
+                <Phone size={32} style={{ color: "#2D7DFF" }} />
+              </div>
+              <div className="text-center">
+                <div className="text-sm font-semibold text-muted-foreground mb-1">
+                  Call / Phone
+                </div>
+                <div
+                  className="text-lg sm:text-xl font-bold"
+                  style={{ color: "#2D7DFF" }}
+                >
+                  +8801976842401
+                </div>
+                <div className="text-xs text-muted-foreground mt-2 opacity-70">
+                  Tap to call now
+                </div>
+              </div>
+            </a>
           </div>
 
-          {/* Contact info */}
-          <div className="flex flex-col gap-5 sm:gap-6 justify-center">
-            <div>
-              <h3 className="font-display text-lg sm:text-xl font-bold text-foreground mb-2">
-                Let&apos;s Connect
-              </h3>
-              <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
-                Whether you&apos;re looking for a web developer, IT consultant,
-                or broadcast professional, I&apos;m here to help bring your
-                vision to life.
-              </p>
-            </div>
-
-            {[
-              {
-                icon: <Mail size={18} />,
-                label: "Email",
-                value: "ahil.contact@gmail.com",
-                href: "mailto:ahil.contact@gmail.com",
-              },
-              {
-                icon: <MessageCircle size={18} />,
-                label: "WhatsApp",
-                value: "+8801976842401",
-                href: "https://wa.me/8801976842401",
-              },
-              {
-                icon: <Linkedin size={18} />,
-                label: "LinkedIn",
-                value: "linkedin.com/in/ahil",
-                href: "https://linkedin.com/in/ahil",
-              },
-              {
-                icon: <MapPin size={18} />,
-                label: "Location",
-                value: "Available Worldwide",
-                href: undefined,
-              },
-            ].map((item) => (
-              <div
-                key={item.label}
-                className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl border border-white/6"
-                style={{ backgroundColor: "#141E28" }}
-              >
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-accent/10 border border-blue-accent/20 flex items-center justify-center text-blue-accent flex-shrink-0">
-                  {item.icon}
-                </div>
-                <div>
-                  <div className="text-[10px] sm:text-xs text-muted-foreground mb-0.5">
-                    {item.label}
-                  </div>
-                  {item.href ? (
-                    <a
-                      href={item.href}
-                      className="text-xs sm:text-sm font-medium text-foreground hover:text-blue-accent transition-colors"
-                    >
-                      {item.value}
-                    </a>
-                  ) : (
-                    <div className="text-xs sm:text-sm font-medium text-foreground">
-                      {item.value}
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
-
-            {/* Social links */}
-            <div className="flex gap-3 mt-2">
-              {[
-                {
-                  icon: <Linkedin size={18} />,
-                  href: "https://linkedin.com/in/ahil",
-                  label: "LinkedIn",
-                },
-                {
-                  icon: <MessageCircle size={18} />,
-                  href: "https://wa.me/8801976842401",
-                  label: "WhatsApp",
-                },
-                {
-                  icon: <Github size={18} />,
-                  href: "https://github.com/ahil",
-                  label: "GitHub",
-                },
-                {
-                  icon: <Twitter size={18} />,
-                  href: "https://twitter.com/ahil",
-                  label: "Twitter",
-                },
-              ].map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={s.label}
-                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl border border-white/10 flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-white/20 hover:bg-white/5 transition-all"
-                  data-ocid="contact.link"
-                >
-                  {s.icon}
-                </a>
-              ))}
-            </div>
+          {/* Social quick links */}
+          <div className="flex gap-3 mt-2">
+            <a
+              href="https://wa.me/8801976842401"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp"
+              className="w-10 h-10 rounded-xl border border-white/10 flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-white/20 hover:bg-white/5 transition-all"
+              data-ocid="contact.link"
+            >
+              <MessageCircle size={18} />
+            </a>
+            <a
+              href="tel:+8801976842401"
+              aria-label="Call"
+              className="w-10 h-10 rounded-xl border border-white/10 flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-white/20 hover:bg-white/5 transition-all"
+              data-ocid="contact.link"
+            >
+              <Phone size={18} />
+            </a>
           </div>
         </div>
       </Section>
@@ -999,51 +905,30 @@ export default function App() {
                 ))}
               </ul>
             </div>
-            {/* Social */}
+            {/* Contact */}
             <div>
               <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-3 sm:mb-4 uppercase tracking-wider">
                 Connect
               </h4>
               <div className="flex gap-3">
-                {[
-                  {
-                    icon: <Linkedin size={17} />,
-                    href: "https://linkedin.com/in/ahil",
-                    label: "LinkedIn",
-                  },
-                  {
-                    icon: <MessageCircle size={17} />,
-                    href: "https://wa.me/8801976842401",
-                    label: "WhatsApp",
-                  },
-                  {
-                    icon: <Github size={17} />,
-                    href: "https://github.com/ahil",
-                    label: "GitHub",
-                  },
-                  {
-                    icon: <Twitter size={17} />,
-                    href: "https://twitter.com/ahil",
-                    label: "Twitter",
-                  },
-                  {
-                    icon: <Mail size={17} />,
-                    href: "mailto:ahil.contact@gmail.com",
-                    label: "Email",
-                  },
-                ].map((s) => (
-                  <a
-                    key={s.label}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={s.label}
-                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg border border-white/10 flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-white/20 hover:bg-white/5 transition-all"
-                    data-ocid="footer.link"
-                  >
-                    {s.icon}
-                  </a>
-                ))}
+                <a
+                  href="https://wa.me/8801976842401"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="WhatsApp"
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg border border-white/10 flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-white/20 hover:bg-white/5 transition-all"
+                  data-ocid="footer.link"
+                >
+                  <MessageCircle size={17} />
+                </a>
+                <a
+                  href="tel:+8801976842401"
+                  aria-label="Call"
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg border border-white/10 flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-white/20 hover:bg-white/5 transition-all"
+                  data-ocid="footer.link"
+                >
+                  <Phone size={17} />
+                </a>
               </div>
             </div>
           </div>
